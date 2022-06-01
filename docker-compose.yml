@@ -1,16 +1,9 @@
-# Warning: This docker-compose file is made for development purposes.
-# Using it will build an image from the locally cloned repository.
-#
-# If you want to use Invidious in production, see the docker-compose.yml file provided
-# in the installation documentation: https://docs.invidious.io/Installation.md
-
 version: "3"
 services:
 
   invidious:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: quay.io/invidious/invidious:latest
+    # image: quay.io/invidious/invidious:latest-arm64 # ARM64/AArch64 devices
     restart: unless-stopped
     ports:
       - "127.0.0.1:3000:3000"
@@ -39,7 +32,7 @@ services:
       - invidious-db
 
   invidious-db:
-    image: docker.io/library/postgres:13
+    image: docker.io/library/postgres:14
     restart: unless-stopped
     volumes:
       - postgresdata:/var/lib/postgresql/data
